@@ -20,12 +20,10 @@ def longest_substring(string)
   window = []
   max = 0
   i = 0
-  j = 0
   while i < string.size
     c = string[i]
     while window.include?(c)
       window.shift
-      j += 1
     end
 
     window << c
@@ -38,3 +36,4 @@ end
 puts longest_substring("pwwkew")
 puts longest_substring("bbbbbb")
 puts longest_substring("abcbec")
+puts longest_substring("abcdec")
