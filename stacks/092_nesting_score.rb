@@ -8,7 +8,20 @@ You may assume that the input only contains well-formed square brackets.
 =end
 
 def nesting_score(string)
-  
+  stack = [0]
+  string.each_char do |c|
+    if c == "["
+      stack.append(0)
+    elsif c == ']'
+      last_value = stack.pop
+      if last_value == 0
+        stack[-1] += 1
+      else
+        stack[-1] += last_value * 2
+      end
+    end
+  end
+  stack[-1]
 end
 
 puts nesting_score("[]") == 1
