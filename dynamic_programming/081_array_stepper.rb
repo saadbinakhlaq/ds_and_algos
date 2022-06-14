@@ -11,7 +11,7 @@ end
 def _array_stepper(numbers, idx, memo)
   return memo[idx] if !memo[idx].nil?
 
-  return true if idx >= numbers.size - 1
+  return true if idx == numbers.size - 1
 
   max_step = numbers[idx]
   (1..max_step).each do |step|

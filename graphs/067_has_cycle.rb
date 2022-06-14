@@ -20,6 +20,9 @@ def cycle_detect(graph, node, visiting, visited)
   if visiting.include?(node)
     return true
   end
+  if visited.include?(node)
+    return false
+  end
 
   visiting << node
   graph[node].each do |neighbor|

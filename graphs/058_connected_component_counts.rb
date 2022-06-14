@@ -9,7 +9,7 @@ The function should return the number of connected components within the graph.
 #           |
 #           7
 #      3
-
+require 'set'
 graph = {
   3 => [],
   4 => [6],
@@ -43,3 +43,5 @@ def connected_components_count(graph)
 
   count
 end
+
+p connected_components_count({0=>[1, 2, 3], 1=>[0, 4], 2=>[0], 3=>[0], 4=>[1]})
