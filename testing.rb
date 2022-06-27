@@ -228,44 +228,114 @@ require 'byebug'
 # intervals = [[1,2],[2,3],[3,4],[1,3]]
 # p erase_overlap_intervals intervals
 
-def character_replacement(sh, k)
-  byebug
-  window = [sh[0]]
-  max_window_size = 1
-  count = k
+# def character_replacement(string, k)
+#   byebug
+#   count = Hash.new do |h, k|
+#     h[k] = 0
+#   end
   
-  index_1 = 1
-  
-  last_character = sh[0]
-  
-  while index_1 < sh.size
-    if sh[index_1] == last_character
-      window << sh[index_1]
-      max_window_size = [max_window_size, window.size].max
+#   left = 0
+#   right = 0
+#   max_window = 0
+#   while right < string.size
+#     count[string[right]] += 1
 
-      index_1 += 1
-    else
-      if count != 0
-        window << sh[index_1]
-        max_window_size = [max_window_size, window.size].max
-        count -= 1
-        index_1 += 1 
-      else
-        while last_character == window[0]
-          window.shift
-        end
-        last_character = window[0]
-        last_character = sh[index_1] if k == 0
+#     max_element_in_window = count.values.max
+    
+#     # window valid?
+#     while right - left + 1 - max_element_in_window > k
+#       left += 1
+#       count[string[left]] -= 1
+#     end
 
-        window = [last_character]
-        count = k
-        index_1 += 1
-      end
-    end
-  end
-  max_window_size
+#     max_window = [max_window, right - left + 1].max
+#     right += 1
+#   end
+#   max_window
+# end
+
+# s = "AABABBA"
+# k = 1
+# p character_replacement s, k
+
+# def count_substrings(string)
+#   final_result = []
+  
+#   index = 0
+  
+#   while index < string.size
+    
+#     left = index
+#     right = index
+    
+#     while left >= 0 && right < string.size && string[left] == string[right]
+#       final_result << string[left...(right + 1)]
+#       left -= 1
+#       right += 1
+#     end
+    
+#     left = index
+#     right = index + 1
+#     while left >= 0 && right < string.size && string[left] == string[right]
+#       final_result << string[left...(right + 1)]
+#       left -= 1
+#       right += 1
+#     end    
+#   end
+#   final_result
+# end
+
+# s = "abc"
+
+# def length_of_lis(nums)
+#   num_hash = Hash.new do |h, k|
+#     h[k] = 1
+#   end
+#   # go from last index to 0
+  
+#   (nums.size - 1).step(0, -1).each do |idx|
+#     ((idx + 1)...nums.size).each do |index_2|
+#       if nums[idx] < nums[index_2]
+#         num_hash[idx] = [num_hash[idx], 1 + num_hash[index_2]].max
+#       end
+#     end
+#   end
+  
+#   if num_hash == {}
+#     return 1
+#   else
+#     num_hash.values.max
+#   end
+# end
+
+# nums = [7, 7, 7, 7]
+
+# # nums = [1,3,6,7,9,4,10,5,6]
+# p length_of_lis nums
+require 'byebug'
+
+def summing_squares(number)
+  _summing_squares(number, {})
 end
 
-s = "ABBB"
-k = 2
-p character_replacement s, k
+def _summing_squares(number, memo)
+  if !memo[number].nil?
+    return memo[number]
+  end
+
+  if number == 0
+    return 0
+  end
+
+  min_squares = Float::INFINITY
+
+  (1...(Math.sqrt(number).floor + 1)).each do |n|
+    sq = n * n
+    current = 1 + _summing_squares(number - sq, memo)
+    min_squares = [min_squares, current].min
+  end
+
+  memo[number] = min_squares
+end
+
+p summing_squares(12)
